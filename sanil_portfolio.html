@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanil KB — Graphic Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --ink:#111009;
+  --paper:#f4ede0;
+  --cream:#ede3cf;
+  --rust:#bf4b20;
+  --gold:#c49a3c;
+  --muted:#7a6e60;
+  --soft:#e8deca;
+  --white:#faf6ef;
+}
+body{background:var(--paper);color:var(--ink);font-family:'Libre Baskerville',Georgia,serif;font-size:16px;line-height:1.75;overflow-x:hidden;cursor:none}
+@media(hover:none){body{cursor:auto}.cursor,.cursor-ring{display:none}}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");pointer-events:none;z-index:998}
+
+/* CURSOR */
+.cursor{position:fixed;width:10px;height:10px;background:var(--rust);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s;mix-blend-mode:multiply}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--rust);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.6}
+
+/* PROGRESS */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--rust);z-index:1001;width:0%}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(244,237,224,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(17,16,9,.1)}
+.nav-brand{font-family:'Playfair Display',serif;font-weight:900;font-size:1.15rem;letter-spacing:.04em;color:var(--ink);text-decoration:none}
+.nav-brand span{color:var(--rust);font-style:italic}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--rust);transition:width .3s}
+.nav-links a:hover{color:var(--rust)}
+.nav-links a:hover::after{width:100%}
+/* Hamburger */
+.nav-toggle{display:none;flex-direction:column;align-items:center;gap:4px;background:none;border:1px solid rgba(17,16,9,.15);cursor:pointer;padding:.55rem .7rem;z-index:201;transition:border-color .25s}
+.nav-toggle:hover{border-color:var(--rust)}
+.nav-toggle span{display:block;width:22px;height:1.5px;background:var(--rust);transition:all .3s cubic-bezier(.22,1,.36,1)}
+.nav-toggle-label{font-family:'DM Mono',monospace;font-size:.42rem;letter-spacing:.22em;text-transform:uppercase;color:var(--rust);margin-top:2px;transition:opacity .2s}
+.nav-toggle.open .nav-toggle-label{opacity:0}
+.nav-toggle.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-toggle.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+/* Mobile drawer */
+.nav-drawer{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--paper);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.nav-drawer.open{display:flex}
+.nav-drawer a{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:1.2rem 3rem;width:100%;text-align:center;border-bottom:1px solid rgba(17,16,9,.07);transition:color .2s,background .2s;position:relative}
+.nav-drawer a::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:0;height:100%;background:rgba(191,75,32,.04);transition:width .3s}
+.nav-drawer a:first-child{border-top:1px solid rgba(17,16,9,.07)}
+.nav-drawer a:hover{color:var(--rust)}
+.nav-drawer a:hover::before{width:100%}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:58% 42%;padding-top:72px;position:relative;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 5rem;position:relative;z-index:2}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rust);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem;opacity:0;animation:slideRight .8s .3s cubic-bezier(.22,1,.36,1) forwards}
+.hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--rust)}
+.hero-name{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(3.5rem,6.5vw,8rem);line-height:.92;letter-spacing:-.02em;color:var(--ink);opacity:0;animation:slideRight .9s .5s cubic-bezier(.22,1,.36,1) forwards}
+.hero-name .italic-line{font-style:italic;color:var(--rust);display:block}
+.hero-role-bar{margin:2rem 0;display:flex;align-items:center;gap:1.2rem;opacity:0;animation:slideRight .8s .7s cubic-bezier(.22,1,.36,1) forwards}
+.hero-role-line{flex:1;max-width:60px;height:2px;background:var(--gold)}
+.hero-role-text{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.hero-summary{font-size:1rem;font-weight:400;line-height:1.85;color:#4a4238;max-width:420px;font-style:italic;opacity:0;animation:slideRight .8s .9s cubic-bezier(.22,1,.36,1) forwards}
+.hero-actions{margin-top:2rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;opacity:0;animation:slideRight .8s 1.1s cubic-bezier(.22,1,.36,1) forwards}
+.btn-primary{display:inline-block;padding:.8rem 2rem;background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;transition:background .3s,transform .2s}
+.btn-primary:hover{background:var(--rust);transform:translateY(-2px)}
+.btn-ghost{display:inline-block;padding:.8rem 1.8rem;border:1.5px solid var(--ink);color:var(--ink);font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;transition:background .3s,color .3s,transform .2s}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+.hero-contact-strip{margin-top:2.5rem;display:flex;gap:2rem;flex-wrap:wrap;opacity:0;animation:slideRight .8s 1.3s cubic-bezier(.22,1,.36,1) forwards}
+.contact-item{display:flex;flex-direction:column;gap:.2rem}
+.contact-label{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.contact-value{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink)}
+.contact-value a{color:var(--ink);text-decoration:none;transition:color .2s}
+.contact-value a:hover{color:var(--rust)}
+
+/* HERO RIGHT */
+.hero-right{position:relative;background:var(--cream);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-graphic{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;animation:fadeIn 1.4s .6s forwards}
+.stats-overlay{position:absolute;bottom:2rem;left:2rem;right:2rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;z-index:3;opacity:0;animation:fadeIn .9s 1.5s forwards}
+.stat-box{background:var(--paper);padding:1rem 1.2rem;border-left:3px solid var(--rust)}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--rust);line-height:1}
+.stat-desc{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+
+/* SECTIONS */
+section{padding:5rem 4rem}
+.section-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rust);margin-bottom:.8rem;display:flex;align-items:center;gap:1rem}
+.section-label::before{content:'';width:24px;height:1px;background:var(--rust)}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:900;line-height:1.1;margin-bottom:2.5rem}
+
+/* SKILLS */
+#skills{background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+#skills::before{content:'SKILLS';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:18vw;font-weight:900;color:rgba(255,255,255,.03);white-space:nowrap;pointer-events:none;letter-spacing:-.04em}
+#skills .section-label{color:var(--gold)}
+#skills .section-label::before{background:var(--gold)}
+#skills .section-title{color:var(--paper)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.08);margin-top:3rem;border:1px solid rgba(255,255,255,.08)}
+.skill-card{background:var(--ink);padding:2rem 1.8rem;transition:background .3s;position:relative;overflow:hidden}
+.skill-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--rust);transition:width .4s}
+.skill-card:hover{background:#1e1b14}
+.skill-card:hover::after{width:100%}
+.skill-icon{font-size:1.4rem;margin-bottom:.8rem}
+.skill-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--paper);margin-bottom:.3rem}
+.skill-type{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,237,224,.4)}
+
+/* EXPERIENCE */
+#experience{background:var(--white)}
+.exp-header{margin-bottom:2rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:5rem}
+.timeline{position:relative;padding-left:2rem;margin-top:2.5rem}
+.timeline::before{content:'';position:absolute;top:0;bottom:0;left:0;width:1px;background:linear-gradient(to bottom,var(--rust),transparent)}
+/* Mobile: stats strip below hero (desktop hidden) */
+.hero-stats-mobile{display:none}
+.timeline-item{position:relative;padding:0 0 3.5rem 3rem;opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.timeline-item.visible{opacity:1;transform:translateY(0)}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-dot{position:absolute;left:-5px;top:6px;width:10px;height:10px;background:var(--rust);border-radius:50%}
+.timeline-period{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);margin-bottom:.5rem}
+.timeline-role{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:.2rem}
+.timeline-org{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.1em;margin-bottom:.4rem}
+.timeline-location{font-size:.85rem;color:var(--muted);font-style:italic}
+
+/* ACHIEVEMENTS */
+#achievements{background:var(--paper)}
+.achievement-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--ink);border:2px solid var(--ink);margin-top:2.5rem}
+.achievement-card{background:var(--paper);padding:2rem 1.8rem;position:relative;transition:background .3s}
+.achievement-card:hover{background:var(--cream)}
+.ach-number{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--rust);opacity:.2;line-height:1;margin-bottom:.4rem}
+.ach-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.6rem}
+.ach-desc{font-size:.88rem;color:var(--muted);line-height:1.7}
+
+/* EDUCATION */
+#education{background:var(--cream)}
+.edu-list{display:flex;flex-direction:column;margin-top:2rem}
+.edu-item{display:grid;grid-template-columns:1fr auto;align-items:center;padding:1.4rem 0;border-bottom:1px solid rgba(17,16,9,.12);gap:1.5rem;opacity:0;transform:translateX(-20px);transition:opacity .5s,transform .5s}
+.edu-item.visible{opacity:1;transform:translateX(0)}
+.edu-degree{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.2rem}
+.edu-institution{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.edu-badge{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.1em;padding:.35rem .8rem;border:1px solid var(--rust);color:var(--rust);white-space:nowrap}
+
+/* CONTACT */
+#contact{background:var(--ink);color:var(--paper);text-align:center;padding:6rem 4rem;position:relative;overflow:hidden}
+#contact::before{content:'"';position:absolute;top:-4rem;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:30rem;color:rgba(255,255,255,.03);line-height:1;pointer-events:none}
+#contact .section-label{justify-content:center;color:var(--gold)}
+#contact .section-label::before{background:var(--gold)}
+.contact-headline{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,5rem);font-weight:900;line-height:1.1;margin-bottom:1.5rem;color:var(--paper)}
+.contact-headline em{font-style:italic;color:var(--rust)}
+.contact-tagline{font-size:1rem;font-style:italic;color:rgba(244,237,224,.6);max-width:400px;margin:0 auto 2.5rem}
+.contact-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:3rem}
+.contact-link{display:flex;flex-direction:column;align-items:center;gap:.4rem;text-decoration:none;transition:transform .2s}
+.contact-link:hover{transform:translateY(-4px)}
+.contact-link-label{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,237,224,.4)}
+.contact-link-value{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--paper)}
+.contact-cta-row{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap}
+.btn-rust{display:inline-block;padding:.9rem 2.5rem;background:var(--rust);color:var(--paper);font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;transition:background .3s,transform .2s}
+.btn-rust:hover{background:#d05a28;transform:translateY(-2px)}
+.btn-outline-light{display:inline-block;padding:.9rem 2.2rem;border:1.5px solid rgba(244,237,224,.4);color:rgba(244,237,224,.8);font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;transition:all .3s}
+.btn-outline-light:hover{border-color:var(--paper);color:var(--paper);transform:translateY(-2px)}
+
+/* FOOTER */
+footer{background:#0a0905;color:rgba(244,237,224,.3);padding:1.2rem 4rem;display:flex;justify-content:space-between;align-items:center;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.15em}
+
+/* ANIMATIONS */
+@keyframes slideRight{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* WORKS GALLERY */
+#works{background:var(--white);position:relative;overflow:hidden}
+#works::before{content:'WORKS';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:18vw;font-weight:900;color:rgba(17,16,9,.03);white-space:nowrap;pointer-events:none;letter-spacing:-.04em}
+.works-filter{display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:2rem}
+.filter-btn{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;padding:.4rem 1rem;border:1px solid rgba(17,16,9,.2);background:transparent;color:var(--muted);cursor:pointer;transition:all .25s;white-space:nowrap}
+.filter-btn.active,.filter-btn:hover{background:var(--rust);border-color:var(--rust);color:var(--paper)}
+.works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.work-card{position:relative;overflow:hidden;cursor:pointer;background:var(--cream);aspect-ratio:3/4;border:1px solid rgba(17,16,9,.08);opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.work-card.visible{opacity:1;transform:translateY(0)}
+.work-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.work-card:hover img{transform:scale(1.07)}
+.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(17,16,9,.88) 0%,rgba(17,16,9,.2) 50%,transparent 100%);opacity:0;transition:opacity .35s;display:flex;flex-direction:column;justify-content:flex-end;padding:1.2rem}
+.work-card:hover .work-overlay{opacity:1}
+.work-tag{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
+.work-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--paper);line-height:1.3}
+.work-expand{position:absolute;top:.8rem;right:.8rem;width:32px;height:32px;background:var(--rust);border:none;color:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;opacity:0;transform:scale(.8);transition:opacity .3s,transform .3s}
+.work-card:hover .work-expand{opacity:1;transform:scale(1)}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(8,7,4,.97);z-index:9000;display:none;align-items:center;justify-content:center;padding:1rem}
+.lightbox.active{display:flex}
+.lightbox-inner{position:relative;max-width:92vw;max-height:92vh;display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.lightbox-img{max-width:88vw;max-height:84vh;object-fit:contain;display:block;box-shadow:0 30px 80px rgba(0,0,0,.7)}
+.lightbox-meta{display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.lightbox-caption{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--paper)}
+.lightbox-counter{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.2em;color:rgba(244,237,224,.35)}
+.lb-close{position:fixed;top:1rem;right:1.4rem;background:none;border:none;color:var(--paper);font-size:1.8rem;cursor:pointer;z-index:9001;opacity:.7;transition:opacity .2s;line-height:1}
+.lb-close:hover{opacity:1}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(244,237,224,.08);border:1px solid rgba(244,237,224,.15);color:var(--paper);font-size:1.8rem;cursor:pointer;padding:.8rem .6rem;z-index:9001;transition:background .2s;line-height:1}
+.lb-nav:hover{background:rgba(244,237,224,.18)}
+.lb-prev{left:.5rem}
+.lb-next{right:.5rem}
+
+/* ═══════════════ RESPONSIVE ═══════════════ */
+
+/* Tablet: 769px – 1024px */
+@media(max-width:1024px){
+  nav{padding:1rem 2.5rem}
+  .hero{grid-template-columns:1fr 1fr;min-height:auto}
+  .hero-left{padding:3rem 2rem 3rem 2.5rem}
+  .hero-right{min-height:480px}
+  .stats-overlay{bottom:1.5rem;left:1.5rem;right:1.5rem;gap:.8rem}
+  .stat-box{padding:.8rem 1rem}
+  .stat-num{font-size:1.6rem}
+  section{padding:4rem 3rem}
+  #contact{padding:5rem 3rem}
+  .two-col{grid-template-columns:1fr;gap:0}
+  .achievement-grid{grid-template-columns:repeat(2,1fr)}
+  .edu-list{grid-template-columns:1fr}
+  footer{padding:1rem 2.5rem;flex-direction:column;gap:.6rem;text-align:center}
+}
+
+/* Mobile: up to 768px */
+@media(max-width:768px){
+  nav{padding:.9rem 1.4rem}
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+  .hero{grid-template-columns:1fr;min-height:auto;padding-top:60px}
+  .hero-left{padding:3rem 1.5rem 2rem}
+  .hero-right{display:none}
+  .hero-stats-mobile{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:2rem;background:var(--cream);padding:1.2rem;border-radius:0}
+  .hero-name{font-size:clamp(3rem,10vw,5rem)}
+  .hero-role-text{font-size:.6rem}
+  .hero-contact-strip{gap:1.2rem}
+  section{padding:3.5rem 1.5rem}
+  #contact{padding:4rem 1.5rem}
+  #skills::before{font-size:28vw}
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+  .achievement-grid{grid-template-columns:1fr}
+  .edu-list{grid-template-columns:1fr}
+  .edu-item{grid-template-columns:1fr auto}
+  .works-grid{grid-template-columns:repeat(2,1fr);gap:.7rem}
+  .filter-btn{font-size:.5rem;padding:.35rem .75rem;letter-spacing:.1em}
+  footer{padding:1rem 1.5rem;flex-direction:column;gap:.5rem;text-align:center}
+  .two-col{gap:0}
+  .section-title{font-size:clamp(1.8rem,7vw,2.5rem);margin-bottom:2rem}
+  .timeline--two-col{grid-template-columns:1fr;gap:0}
+  .timeline--two-col .timeline-item{border-left:none;padding-left:3rem}
+  .timeline--two-col{padding-left:2rem;position:relative}
+  .timeline--two-col::before{display:block}
+}
+
+/* Small mobile: up to 480px */
+@media(max-width:480px){
+  nav{padding:.8rem 1rem}
+  .hero-left{padding:2.5rem 1rem 2rem}
+  .hero-name{font-size:clamp(2.8rem,12vw,4rem)}
+  section{padding:3rem 1rem}
+  #contact{padding:3.5rem 1rem}
+  .works-grid{grid-template-columns:repeat(2,1fr);gap:.5rem}
+  .achievement-card{padding:1.5rem 1.2rem}
+  .ach-number{font-size:2.2rem}
+  .contact-link-value{font-size:.68rem}
+  footer{padding:.9rem 1rem}
+  .lb-nav{display:none}
+  .lightbox{padding:.5rem}
+  .lightbox-img{max-width:96vw;max-height:88vh}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-brand">Sanil <span>KB</span></a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+    <span></span><span></span><span></span>
+    <span class="nav-toggle-label">Menu</span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="navDrawer">
+  <a href="#skills" class="drawer-link">Skills</a>
+  <a href="#experience" class="drawer-link">Experience</a>
+  <a href="#achievements" class="drawer-link">Achievements</a>
+  <a href="#works" class="drawer-link">Works</a>
+  <a href="#education" class="drawer-link">Education</a>
+  <a href="#contact" class="drawer-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Graphic Designer · Kerala, India</p>
+    <h1 class="hero-name">
+      Sanil
+      <span class="italic-line">KB</span>
+    </h1>
+    <div class="hero-role-bar">
+      <div class="hero-role-line"></div>
+      <span class="hero-role-text">Creative · Illustration · Multimedia · Typography</span>
+    </div>
+    <p class="hero-summary">
+      A dedicated graphic designer with over a decade of experience across education and media sectors — crafting visually compelling work that resonates with audiences and elevates communication.
+    </p>
+    <div class="hero-actions">
+      <a href="#experience" class="btn-primary">View Work History</a>
+      <a href="#contact" class="btn-ghost">Get In Touch</a>
+    </div>
+    <div class="hero-contact-strip">
+      <div class="contact-item">
+        <span class="contact-label">Phone</span>
+        <span class="contact-value"><a href="tel:7025309448">7025309448</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Email</span>
+        <span class="contact-value"><a href="mailto:sanu.exe@gmail.com">sanu.exe@gmail.com</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">YouTube</span>
+        <span class="contact-value"><a href="https://youtube.com/@dotlinecreation" target="_blank">@dotlinecreation</a></span>
+      </div>
+    </div>
+    <!-- Stats strip — visible on mobile only (hero-right hidden on mobile) -->
+    <div class="hero-stats-mobile">
+      <div class="stat-box"><div class="stat-num">14+</div><div class="stat-desc">Years Experience</div></div>
+      <div class="stat-box"><div class="stat-num">200+</div><div class="stat-desc">Students Trained</div></div>
+      <div class="stat-box"><div class="stat-num">50+</div><div class="stat-desc">Posters Created</div></div>
+      <div class="stat-box"><div class="stat-num">95%</div><div class="stat-desc">Satisfaction Rate</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-graphic">
+      <svg viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect x="80" y="60" width="340" height="420" fill="none" stroke="#bf4b20" stroke-width="1" opacity="0.25"/>
+        <rect x="60" y="80" width="340" height="420" fill="none" stroke="#c49a3c" stroke-width="0.5" opacity="0.2"/>
+        <text x="50" y="370" font-family="Georgia,serif" font-size="320" font-weight="900" fill="#bf4b20" opacity="0.07" letter-spacing="-10">S</text>
+        <g opacity="0.3">
+          <circle cx="100" cy="100" r="2" fill="#bf4b20"/><circle cx="150" cy="100" r="2" fill="#bf4b20"/>
+          <circle cx="200" cy="100" r="2" fill="#bf4b20"/><circle cx="250" cy="100" r="2" fill="#bf4b20"/>
+          <circle cx="300" cy="100" r="2" fill="#bf4b20"/><circle cx="350" cy="100" r="2" fill="#bf4b20"/>
+          <circle cx="400" cy="100" r="2" fill="#bf4b20"/><circle cx="100" cy="150" r="2" fill="#bf4b20"/>
+          <circle cx="400" cy="150" r="2" fill="#bf4b20"/><circle cx="100" cy="200" r="2" fill="#bf4b20"/>
+          <circle cx="400" cy="200" r="2" fill="#bf4b20"/>
+        </g>
+        <g transform="translate(250,280)">
+          <circle cx="0" cy="0" r="110" fill="none" stroke="#111009" stroke-width="0.8" opacity="0.2"/>
+          <circle cx="0" cy="0" r="80" fill="none" stroke="#bf4b20" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="0" cy="0" r="50" fill="#c49a3c" opacity="0.12"/>
+          <circle cx="0" cy="0" r="50" fill="none" stroke="#c49a3c" stroke-width="1.5" opacity="0.6"/>
+          <line x1="-110" y1="0" x2="110" y2="0" stroke="#111009" stroke-width="0.5" opacity="0.12"/>
+          <line x1="0" y1="-110" x2="0" y2="110" stroke="#111009" stroke-width="0.5" opacity="0.12"/>
+          <polygon points="0,-65 65,0 0,65 -65,0" fill="none" stroke="#bf4b20" stroke-width="1" opacity="0.35"/>
+          <text x="0" y="10" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="900" fill="#111009" opacity="0.7">SKB</text>
+          <text x="0" y="28" text-anchor="middle" font-family="monospace" font-size="7" letter-spacing="3" fill="#bf4b20" opacity="0.8">DESIGNER</text>
+        </g>
+        <line x1="340" y1="60" x2="420" y2="60" stroke="#c49a3c" stroke-width="2" opacity="0.6"/>
+        <line x1="360" y1="75" x2="420" y2="75" stroke="#c49a3c" stroke-width="1" opacity="0.4"/>
+        <line x1="380" y1="88" x2="420" y2="88" stroke="#c49a3c" stroke-width="0.5" opacity="0.3"/>
+        <text x="80" y="520" font-family="monospace" font-size="8" letter-spacing="4" fill="#111009" opacity="0.2">GRAPHIC · DESIGN · ILLUSTRATION</text>
+        <line x1="80" y1="530" x2="420" y2="530" stroke="#111009" stroke-width="0.5" opacity="0.12"/>
+      </svg>
+    </div>
+    <div class="stats-overlay">
+      <div class="stat-box"><div class="stat-num">14+</div><div class="stat-desc">Years Experience</div></div>
+      <div class="stat-box"><div class="stat-num">200+</div><div class="stat-desc">Students Trained</div></div>
+      <div class="stat-box"><div class="stat-num">50+</div><div class="stat-desc">Posters Created</div></div>
+      <div class="stat-box"><div class="stat-num">95%</div><div class="stat-desc">Satisfaction Rate</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What I Do</div>
+  <h2 class="section-title">Tools &amp;<br><em style="font-style:italic;color:var(--gold)">Expertise</em></h2>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-icon">🎨</div><div class="skill-name">Adobe Photoshop</div><div class="skill-type">Photo Editing · Compositing</div></div>
+    <div class="skill-card"><div class="skill-icon">✏️</div><div class="skill-name">Adobe Illustrator</div><div class="skill-type">Vector · Illustration</div></div>
+    <div class="skill-card"><div class="skill-icon">📐</div><div class="skill-name">Adobe InDesign</div><div class="skill-type">Layout · Print Design</div></div>
+    <div class="skill-card"><div class="skill-icon">🖨️</div><div class="skill-name">Adobe PageMaker</div><div class="skill-type">Desktop Publishing</div></div>
+    <div class="skill-card"><div class="skill-icon">🌀</div><div class="skill-name">CorelDRAW</div><div class="skill-type">Graphic Design · Print</div></div>
+    <div class="skill-card"><div class="skill-icon">🖥️</div><div class="skill-name">Desktop Publishing</div><div class="skill-type">Layouts · Typesetting</div></div>
+    <div class="skill-card"><div class="skill-icon">🔤</div><div class="skill-name">Typography</div><div class="skill-type">Lettering · Type Design</div></div>
+    <div class="skill-card"><div class="skill-icon">🌐</div><div class="skill-name">Malayalam Typing</div><div class="skill-type">Regional Language · DTP</div></div>
+    <div class="skill-card"><div class="skill-icon">🎞️</div><div class="skill-name">Multimedia</div><div class="skill-type">Editing · Illustration</div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-header">
+    <div class="section-label">Career Path</div>
+    <h2 class="section-title">Professional<br><em style="font-style:italic;color:var(--rust)">Experience</em></h2>
+    <p style="color:var(--muted);font-size:.95rem;font-style:italic;max-width:440px;margin-top:-1rem">Over a decade of hands-on design work across training institutes, print media, and technology companies.</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2026 – Present</div>
+      <div class="timeline-role">Graphic Designer</div>
+      <div class="timeline-org">Avodha Edutec</div>
+      <div class="timeline-location">Thrissur, Kerala — Education Center focused on IT Training</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2018 – 2025</div>
+      <div class="timeline-role">Graphic Designer</div>
+      <div class="timeline-org">IT Kerala Computer Education</div>
+      <div class="timeline-location">Kunnamkulam, Kerala — Computer Education Training Centre</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2017 – 2018</div>
+      <div class="timeline-role">Graphic Designer</div>
+      <div class="timeline-org">Noha Graphics</div>
+      <div class="timeline-location">Perumpavoor — Graphics &amp; Print Media Company</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2016 – 2017</div>
+      <div class="timeline-role">Graphic Designer</div>
+      <div class="timeline-org">G-Tec Computer Education</div>
+      <div class="timeline-location">Kunnamkulam — Computer Training Centre</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2014 – 2016</div>
+      <div class="timeline-role">Graphic Designer</div>
+      <div class="timeline-org">CADZONE Education</div>
+      <div class="timeline-location">Brahmakulam, Guruvayoor — Computer Training Centre</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2011 – 2014</div>
+      <div class="timeline-role">Graphic Designer</div>
+      <div class="timeline-org">Global Tec School of Fashion Design</div>
+      <div class="timeline-location">Ottapalam — Fashion Design School</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2010 – 2011</div>
+      <div class="timeline-role">Mobile Phone Technician</div>
+      <div class="timeline-org">Al Methayil Mobile Phone Sales &amp; Service</div>
+      <div class="timeline-location">New Sanaya, Ajman, UAE</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Earlier</div>
+      <div class="timeline-role">Mobile Phone Technician</div>
+      <div class="timeline-org">SIMCO Smart Phone Service</div>
+      <div class="timeline-location">Perumpilavu, Kerala</div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">Impact</div>
+  <h2 class="section-title">Key<br><em style="font-style:italic;color:var(--rust)">Achievements</em></h2>
+  <div class="achievement-grid">
+    <div class="achievement-card">
+      <div class="ach-number">01</div>
+      <div class="ach-title">Creative Poster Designs</div>
+      <div class="ach-desc">Designed 50+ creative posters for IT training programs, directly increasing enrollment by 20% through visually engaging promotional material.</div>
+    </div>
+    <div class="achievement-card">
+      <div class="ach-number">02</div>
+      <div class="ach-title">Team Leadership Success</div>
+      <div class="ach-desc">Led a team of 5 designers to deliver a high-profile project while achieving 10% budget savings through smart planning and resource management.</div>
+    </div>
+    <div class="achievement-card">
+      <div class="ach-number">03</div>
+      <div class="ach-title">Brand Visibility Boost</div>
+      <div class="ach-desc">Improved client brand visibility by 30% through innovative graphic content creation — building cohesive visual identities that stand out.</div>
+    </div>
+    <div class="achievement-card">
+      <div class="ach-number">04</div>
+      <div class="ach-title">Successful Design Training</div>
+      <div class="ach-desc">Instructed over 200 students in Graphic Design, achieving a remarkable 95% student satisfaction rate through practical, inspiring teaching.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="section-label">Portfolio</div>
+  <h2 class="section-title">My <em style="font-style:italic;color:var(--rust)">Works</em></h2>
+  <div class="works-filter" id="worksFilter">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="poster">Poster Design</button>
+    <button class="filter-btn" data-filter="id_card">ID Card Design</button>
+    <button class="filter-btn" data-filter="wedding">Wedding Card</button>
+    <button class="filter-btn" data-filter="badge">Badge Design</button>
+    <button class="filter-btn" data-filter="bottle">Bottle Design</button>
+    <button class="filter-btn" data-filter="calendar">Calendar</button>
+    <button class="filter-btn" data-filter="logo">Logo Design</button>
+  </div>
+  <div class="works-grid" id="worksGrid"></div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Academic Background</div>
+  <h2 class="section-title">Education &amp;<br><em style="font-style:italic;color:var(--rust)">Training</em></h2>
+  <div class="edu-list">
+    <div class="edu-item">
+      <div><div class="edu-degree">Multimedia &amp; Graphic Designing</div><div class="edu-institution">Infonet Computer Education</div></div>
+      <div class="edu-badge">Multimedia</div>
+    </div>
+    <div class="edu-item">
+      <div><div class="edu-degree">Graphics &amp; Print Media</div><div class="edu-institution">Noha Graphics</div></div>
+      <div class="edu-badge">Print Design</div>
+    </div>
+    <div class="edu-item">
+      <div><div class="edu-degree">Computer Graphics</div><div class="edu-institution">G-Tec Computer Education</div></div>
+      <div class="edu-badge">Design</div>
+    </div>
+    <div class="edu-item">
+      <div><div class="edu-degree">Computer Education</div><div class="edu-institution">CADZONE Education</div></div>
+      <div class="edu-badge">Technology</div>
+    </div>
+    <div class="edu-item">
+      <div><div class="edu-degree">Fashion Design</div><div class="edu-institution">Global Tec School of Fashion Design</div></div>
+      <div class="edu-badge">Fashion</div>
+    </div>
+    <div class="edu-item">
+      <div><div class="edu-degree">Higher Secondary (+2)</div><div class="edu-institution">GHSS Kadavallur</div></div>
+      <div class="edu-badge">Academic</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's Connect</div>
+  <h2 class="contact-headline">Have a project<br>in <em>mind?</em></h2>
+  <p class="contact-tagline">Open to freelance projects, full-time roles, and creative collaborations.</p>
+  <div class="contact-links">
+    <a href="tel:7025309448" class="contact-link">
+      <span class="contact-link-label">Phone</span>
+      <span class="contact-link-value">+91 7025309448</span>
+    </a>
+    <a href="mailto:sanu.exe@gmail.com" class="contact-link">
+      <span class="contact-link-label">Email</span>
+      <span class="contact-link-value">sanu.exe@gmail.com</span>
+    </a>
+    <a href="https://youtube.com/@dotlinecreation" target="_blank" class="contact-link">
+      <span class="contact-link-label">YouTube</span>
+      <span class="contact-link-value">@dotlinecreation</span>
+    </a>
+    <a href="#" class="contact-link">
+      <span class="contact-link-label">Location</span>
+      <span class="contact-link-value">Thrissur, Kerala, India</span>
+    </a>
+  </div>
+  <div class="contact-cta-row">
+    <a href="mailto:sanu.exe@gmail.com" class="btn-rust">Send Email</a>
+    <a href="https://youtube.com/@dotlinecreation" target="_blank" class="btn-outline-light">View YouTube</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Sanil KB — Graphic Designer</span>
+  <span>Perumpilavu, Thrissur District, Kerala</span>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+});
+(function animateRing(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animateRing);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.width='16px';cursor.style.height='16px';ring.style.width='52px';ring.style.height='52px'});
+  el.addEventListener('mouseleave',()=>{cursor.style.width='10px';cursor.style.height='10px';ring.style.width='36px';ring.style.height='36px'});
+});
+
+// Scroll progress
+const bar=document.getElementById('progressBar');
+window.addEventListener('scroll',()=>{
+  bar.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';
+});
+
+// Intersection observer
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80);
+  });
+},{threshold:.15});
+document.querySelectorAll('.timeline-item,.edu-item').forEach(el=>obs.observe(el));
+
+// ── WORKS GALLERY ──────────────────────────────────────────
+const worksData = [
+  // Poster Designs
+  {file:'poster_design1.jpeg',   title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design2.jpeg',   title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design3.jpeg',   title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design4.jpeg',   title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design5.jpeg',   title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design6.jpeg',   title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design7.jpeg',   title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design8.jpeg',   title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design9.jpeg',   title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design10.jpeg',  title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design11.jpeg',  title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design12.jpeg',  title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design13.jpeg',  title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design14.jpeg',  title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design15.jpeg',  title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design16.jpeg',  title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  {file:'poster_design17.jpeg',  title:'Poster Design',  cat:'poster',   type:'Poster Design'},
+  // ID Card Designs
+  {file:'id_card_design1.jpeg',  title:'ID Card Design', cat:'id_card',  type:'ID Card Design'},
+  {file:'id_card_design2.jpeg',  title:'ID Card Design', cat:'id_card',  type:'ID Card Design'},
+  {file:'id_card_design3.jpeg',  title:'ID Card Design', cat:'id_card',  type:'ID Card Design'},
+  {file:'id_card_design4.jpeg',  title:'ID Card Design', cat:'id_card',  type:'ID Card Design'},
+  {file:'id_card_design5.jpeg',  title:'ID Card Design', cat:'id_card',  type:'ID Card Design'},
+  {file:'id_card_design6.jpeg',  title:'ID Card Design', cat:'id_card',  type:'ID Card Design'},
+  // Wedding Cards
+  {file:'wedding_card1.jpeg',    title:'Wedding Card',   cat:'wedding',  type:'Wedding Design'},
+  {file:'wedding_card2.jpeg',    title:'Wedding Card',   cat:'wedding',  type:'Wedding Design'},
+  {file:'wedding_card3.jpeg',    title:'Wedding Card',   cat:'wedding',  type:'Wedding Design'},
+  {file:'wedding_card4.jpeg',    title:'Wedding Card',   cat:'wedding',  type:'Wedding Design'},
+  {file:'wedding_card5.jpeg',    title:'Wedding Card',   cat:'wedding',  type:'Wedding Design'},
+  {file:'wedding_card6.jpeg',    title:'Wedding Card',   cat:'wedding',  type:'Wedding Design'},
+  // Badge Designs
+  {file:'badge_design1.jpeg',    title:'Badge Design',   cat:'badge',    type:'Badge Design'},
+  {file:'badge_design2.jpeg',    title:'Badge Design',   cat:'badge',    type:'Badge Design'},
+  // Bottle Design
+  {file:'bottle_design1.jpeg',   title:'Bottle Design',  cat:'bottle',   type:'Bottle Design'},
+  // Calendar
+  {file:'calender1.jpeg',        title:'Calendar Design',cat:'calendar', type:'Calendar Design'},
+  // Logo Design
+  {file:'logo_design1.jpeg',     title:'Logo Design',    cat:'logo',     type:'Logo Design'},
+];
+
+// inject lightbox into DOM
+document.body.insertAdjacentHTML('beforeend',`
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">&#8249;</button>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">&#8250;</button>
+  <div class="lightbox-inner">
+    <img class="lightbox-img" id="lbImg" alt="Portfolio work">
+    <div class="lightbox-meta">
+      <div class="lightbox-caption" id="lbCaption"></div>
+      <div class="lightbox-counter" id="lbCounter"></div>
+    </div>
+  </div>
+</div>
+`);
+
+// Filtered list used for lightbox navigation
+let filteredData = [...worksData];
+let lbIndex = 0;
+
+function openLb(i) {
+  lbIndex = i;
+  const w = filteredData[i];
+  document.getElementById('lbImg').src = 'works/' + w.file;
+  document.getElementById('lbCaption').textContent = w.title;
+  document.getElementById('lbCounter').textContent = (i + 1) + ' — ' + filteredData.length;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.getElementById('lbImg').src = '';
+  document.body.style.overflow = '';
+}
+function navLb(d) {
+  lbIndex = (lbIndex + d + filteredData.length) % filteredData.length;
+  openLb(lbIndex);
+}
+document.getElementById('lbClose').onclick = closeLb;
+document.getElementById('lbPrev').onclick = () => navLb(-1);
+document.getElementById('lbNext').onclick = () => navLb(1);
+document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLb(); });
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft') navLb(-1);
+  if (e.key === 'ArrowRight') navLb(1);
+});
+
+// Build gallery cards
+const worksGrid = document.getElementById('worksGrid');
+const worksObs = new IntersectionObserver(entries => {
+  entries.forEach((en, i) => {
+    if (en.isIntersecting) setTimeout(() => en.target.classList.add('visible'), i * 60);
+  });
+}, { threshold: .1 });
+
+worksData.forEach((w, globalIdx) => {
+  const card = document.createElement('div');
+  card.className = 'work-card';
+  card.dataset.cat = w.cat;
+  card.innerHTML = `
+    <img src="works/${w.file}" alt="${w.title}" loading="lazy">
+    <div class="work-overlay">
+      <div class="work-tag">${w.type}</div>
+      <div class="work-title">${w.title}</div>
+    </div>
+    <button class="work-expand" aria-label="Enlarge">&#10530;</button>
+  `;
+  card.addEventListener('click', () => {
+    // Find index within filteredData for lightbox nav
+    const idx = filteredData.indexOf(w);
+    if (idx !== -1) openLb(idx);
+  });
+  worksGrid.appendChild(card);
+  worksObs.observe(card);
+});
+
+// Category filter logic
+document.getElementById('worksFilter').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filter = btn.dataset.filter;
+  filteredData = filter === 'all' ? [...worksData] : worksData.filter(w => w.cat === filter);
+
+  // Show / hide cards with animation
+  document.querySelectorAll('.work-card').forEach(card => {
+    const match = filter === 'all' || card.dataset.cat === filter;
+    if (match) {
+      card.style.display = '';
+      requestAnimationFrame(() => card.classList.add('visible'));
+    } else {
+      card.classList.remove('visible');
+      card.style.display = 'none';
+    }
+  });
+});
+// Hamburger menu
+const navToggle = document.getElementById('navToggle');
+const navDrawer = document.getElementById('navDrawer');
+if (navToggle && navDrawer) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = navDrawer.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  // Close drawer on any link click
+  navDrawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navDrawer.classList.remove('open');
+      navToggle.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
+</script>
+</body>
+</html>
